@@ -1,7 +1,6 @@
 import pandas as pd
 import pyspark
 from pyspark.sql import SparkSession, functions as F
-import re
 from utils import mode, count_if, sum_size_if, sum_profit_if, sum_revenue_if
 
 
@@ -110,7 +109,7 @@ class CustomerOrders:
         :return: None. Simply creates / updates the csv file in the specified path.
         """
         try:
-            if not re.search("\.csv$", output_path):
+            if not output_path.endswith(".csv"):
                 raise ValueError
             pandas_df: pd.DataFrame = self.aggregate_dataframe.toPandas()
             pandas_df.to_csv(output_path, index=False)
