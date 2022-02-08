@@ -4,11 +4,15 @@ from unittest import TestCase
 
 
 class TestDataPipeline(TestCase):
+    """
+    All tests relating to the main ETL functions for transforming customer daily orders to weekly orders.
+    """
+
     def setUp(self) -> None:
         self.pipeline = CustomerOrders("unittest_data.xlsx")
         self.error_pipeline = CustomerOrders("wrong_location.csv")
 
-    def test_data_is_extracted_as_expected(self):
+    def test_data_is_extracted_as_expected(self) -> None:
         self.assertEqual(
             self.pipeline.extract_data().columns,
             [
@@ -36,13 +40,13 @@ class TestDataPipeline(TestCase):
             ],
         )
 
-    def test_extract_data_function_handles_errors_properly(self):
+    def test_extract_data_function_handles_errors_properly(self) -> None:
         self.assertRaises(FileNotFoundError, self.error_pipeline.extract_data)
 
-    def test_transform_data_function_handles_errors_properly(self):
+    def test_transform_data_function_handles_errors_properly(self) -> None:
         self.assertRaises(AttributeError, self.error_pipeline.transform_data)
 
-    def test_data_is_aggregated_and_properly_transformed(self):
+    def test_data_is_aggregated_and_properly_transformed(self) -> None:
         self.pipeline.extract_data()
         self.assertEqual(
             self.pipeline.transform_data().columns,
@@ -78,7 +82,7 @@ class TestDataPipeline(TestCase):
             ],
         )
 
-    def test_saves_appropriate_data_into_csv_file(self):
+    def test_saves_appropriate_data_into_csv_file(self) -> None:
         self.pipeline.extract_data()
         self.pipeline.transform_data()
         storage_path = "output/test_data.csv"

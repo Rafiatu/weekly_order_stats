@@ -13,7 +13,7 @@ sum_revenue_if = lambda cond: F.sum(F.when(cond, F.col("order_revenue")).otherwi
 sum_profit_if = lambda cond: F.sum(F.when(cond, F.col("order_profit")).otherwise(0))
 
 
-def find_mode(column: list) -> Union[str, int]:
+def find_mode(column: Union[list, str]) -> Union[str, int]:
     return statistics.mode(column)
 
 
