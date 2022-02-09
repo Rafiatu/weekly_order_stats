@@ -1,10 +1,17 @@
+import logging
 import pandas as pd
 import pyspark
 from pyspark.sql import SparkSession, functions as F
 from utils import mode, count_if, sum_size_if, sum_profit_if, sum_revenue_if
 
 
+logging.basicConfig(level=logging.DEBUG)
+
 class CustomerOrders:
+    """
+    Custom class for handling the data modelling of daily customer orders to weekly orders.
+    """
+
     def __init__(self, path_to_excel_file: str) -> None:
         self.aggregate_dataframe = None
         self.dataframe = None
@@ -23,7 +30,7 @@ class CustomerOrders:
             self.spark_df = spark_df.withColumn("week", F.weekofyear(spark_df.dt))
             return self.spark_df
         except Exception as error:
-            print("There was a problem with reading the data.")
+            logging.error("There was a problem with reading the data.")
             raise error
 
     def transform_data(self) -> pyspark.sql.dataframe.DataFrame:
@@ -33,6 +40,7 @@ class CustomerOrders:
         :return aggregate_dataframe: The transformed data after all aggregations.
         """
         try:
+            logging.info("Process started for data transformation.......")
             self.aggregate_dataframe = (
                 self.spark_df.groupBy("week", "customer_id")
                 .agg(
@@ -94,9 +102,10 @@ class CustomerOrders:
                 )
                 .orderBy("week")
             ).drop("week")
+            logging.info("Orders data successfully transformed.")
             return self.aggregate_dataframe
         except Exception as error:
-            print(
+            logging.error(
                 "An error occurred while transforming the data.",
                 "Returning the untransformed data",
             )
@@ -113,8 +122,8 @@ class CustomerOrders:
                 raise ValueError
             pandas_df: pd.DataFrame = self.aggregate_dataframe.toPandas()
             pandas_df.to_csv(output_path, index=False)
-            print(f"File successfully saved in {output_path}")
+            logging.info(f"File successfully saved in {output_path}")
             return True
         except Exception as error:
-            print("Unable to save transformed data.")
+            logging.error("Unable to save transformed data.")
             raise error
