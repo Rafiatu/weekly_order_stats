@@ -14,6 +14,9 @@ sum_profit_if = lambda cond: F.sum(F.when(cond, F.col("order_profit")).otherwise
 
 
 def find_mode(column: Union[list, str]) -> Union[str, int]:
+    """
+    Gets the mode of an iterable. If there are multiple modes, returns the first encounter.
+    """
     counts = Counter(column)
     top = counts.most_common(1)
     return top[0][0]

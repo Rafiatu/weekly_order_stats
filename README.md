@@ -18,47 +18,41 @@ Setting up this project is pretty simple.
       git pull origin main --rebase
    ```
 
-2. Change directory into `weekly_order_stats` and create a virtual environment for this project using the following command:
-``` 
-   python -m venv venv 
-```
+2. Change directory into `weekly_order_stats` to be able to run everything successfully.
 
-3. This project uses [Docker](https://www.docker.com/). You must have docker installed on your PC in order to run this project on docker successfully.
-Build the base python image used for the project that was specified in ***dockerfile*** by running ` docker build . ` *Note the dot (.) at end of the command*.
+
+3. This project uses [Docker](https://www.docker.com/). You must have docker installed on your PC in order to run this project on docker successfully. Once you have Docker up and running, 
+build the base python image used for the project that was specified in ***dockerfile*** by running 
+```
+   docker build --tag task . 
+``` 
+*Note the dot (.) at end of the command*. This process may take a couple minutes especially with installing pyspark.
  
 
-4. Once your virtual environment is activated, install the project's requirements by running this command in the terminal.
+4. Once the build process is finished, you can run the python image that was just built using the command:
 ``` 
-   pip install -r requirements.txt 
+   docker run task
 ```
 
-5. To run the main ETL functions and get the aggregated data saved into a csv file, 
-you can go into `main.py` file of this project, then add this line of code:
-``` 
-orders.load_data_to_csv(<path_to_csv_file_you_want_the_data_saved>)
-```
-An example has been made available already in `main.py`.
 
-6. Run the `main.py` script from the command line with the following command
+5. To run the main ETL functions and get the aggregated data from the provided daily orders data saved into a csv file, run the `main.py` script using the following command
 ``` 
-   python main.py 
+   docker run task python main.py 
 ```
 
 In summary, these are the lists of commands to run in listed order, to start up the project.
 ```
-1. git clone https://github.com/decadevs/teamB-bouncer-api.git
-2. cd teamB-bouncer-api
-3. docker build .
-4. docker-compose up
-5. docker-compose exec api python project/manage.py makemigrations db
-6. docker-compose exec api python project/manage.py migrate
+1. git clone https://github.com/Rafiatu/weekly_order_stats.git
+2. cd weekly_order_stats
+3. docker build --tag task .
+4. docker run task python main.py
 ```
 
 ## Running Tests
-This project is shipped with python unittest. Running the tests is pretty straightforward.
+This project is shipped with python unittest. Running the tests via docker is pretty straightforward.
 In the terminal, run the command 
 ```
-   python -m unittest 
+   docker run task python -m unittest 
 ```
 
 
