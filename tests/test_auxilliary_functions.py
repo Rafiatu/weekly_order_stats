@@ -1,7 +1,11 @@
+import logging
 from pyspark.sql import functions as F
 from src.processor import CustomerOrders
 from unittest import TestCase
 from utils import *
+
+
+logging.disable(logging.CRITICAL)
 
 
 class UtilsTest(TestCase):
@@ -89,7 +93,7 @@ class UtilsTest(TestCase):
 
     def test_sum_profit_if_function_returns_expected_value_on_diff_column(self) -> None:
         condition = F.col("order_delivery_fee") > 0
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.dataframe.select(
                 sum_profit_if(condition).alias("paid_delivery_fee")
             ).collect()[0][0],

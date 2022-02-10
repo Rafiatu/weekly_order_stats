@@ -13,15 +13,19 @@ Setting up this project is pretty simple.
 ``` 
    git clone https://github.com/Rafiatu/weekly_order_stats.git
 ```
+   If you have previously cloned this repo, simply update your local branch by running the command:
+   ```
+      git pull origin main --rebase
+   ```
 
 2. Change directory into `weekly_order_stats` and create a virtual environment for this project using the following command:
 ``` 
    python -m venv venv 
 ```
 
-3. Activate the virtual environment you just created in step 2 using either of the following commands
-   - On Windows: ` venv\Scripts\activate `
-   - On Mac: ` source venv/bin/activate `
+3. This project uses [Docker](https://www.docker.com/). You must have docker installed on your PC in order to run this project on docker successfully.
+Build the base python image used for the project that was specified in ***dockerfile*** by running ` docker build . ` *Note the dot (.) at end of the command*.
+ 
 
 4. Once your virtual environment is activated, install the project's requirements by running this command in the terminal.
 ``` 
@@ -40,6 +44,15 @@ An example has been made available already in `main.py`.
    python main.py 
 ```
 
+In summary, these are the lists of commands to run in listed order, to start up the project.
+```
+1. git clone https://github.com/decadevs/teamB-bouncer-api.git
+2. cd teamB-bouncer-api
+3. docker build .
+4. docker-compose up
+5. docker-compose exec api python project/manage.py makemigrations db
+6. docker-compose exec api python project/manage.py migrate
+```
 
 ## Running Tests
 This project is shipped with python unittest. Running the tests is pretty straightforward.

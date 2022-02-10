@@ -7,6 +7,7 @@ from utils import mode, count_if, sum_size_if, sum_profit_if, sum_revenue_if
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 class CustomerOrders:
     """
     Custom class for handling the data modelling of daily customer orders to weekly orders.
@@ -106,8 +107,7 @@ class CustomerOrders:
             return self.aggregate_dataframe
         except Exception as error:
             logging.error(
-                "An error occurred while transforming the data.",
-                "Returning the untransformed data",
+                "An error occurred while transforming the data. Returning the untransformed data",
             )
             raise error
 
@@ -121,6 +121,7 @@ class CustomerOrders:
             if not output_path.endswith(".csv"):
                 raise ValueError
             pandas_df: pd.DataFrame = self.aggregate_dataframe.toPandas()
+            self.__spark.stop()
             pandas_df.to_csv(output_path, index=False)
             logging.info(f"File successfully saved in {output_path}")
             return True

@@ -1,6 +1,6 @@
+from collections import Counter
 from pyspark.sql import functions as F
 from pyspark.sql.types import StringType
-import statistics
 from typing import Union
 
 
@@ -14,7 +14,9 @@ sum_profit_if = lambda cond: F.sum(F.when(cond, F.col("order_profit")).otherwise
 
 
 def find_mode(column: Union[list, str]) -> Union[str, int]:
-    return statistics.mode(column)
+    counts = Counter(column)
+    top = counts.most_common(1)
+    return top[0][0]
 
 
 mode: F.udf = F.udf(find_mode, StringType())

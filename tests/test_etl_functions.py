@@ -1,6 +1,10 @@
+import logging
 import os
 from src.processor import CustomerOrders
 from unittest import TestCase
+
+
+logging.disable(logging.CRITICAL)
 
 
 class TestDataPipeline(TestCase):
