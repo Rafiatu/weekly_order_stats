@@ -1,7 +1,7 @@
 FROM python:3.7-stretch as base
 
 # ensure to change the workdir to your repo name before pushing.
-WORKDIR /Barbora 
+WORKDIR /weekly_order_stats 
 
 COPY ./requirements.txt .
 

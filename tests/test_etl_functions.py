@@ -2,6 +2,7 @@ import logging
 import os
 from src.processor import CustomerOrders
 from unittest import TestCase
+import warnings
 
 
 logging.disable(logging.CRITICAL)
@@ -13,6 +14,7 @@ class TestDataPipeline(TestCase):
     """
 
     def setUp(self) -> None:
+        warnings.filterwarnings("ignore", category=ResourceWarning)
         self.pipeline = CustomerOrders("unittest_data.xlsx")
         self.error_pipeline = CustomerOrders("wrong_location.csv")
 
