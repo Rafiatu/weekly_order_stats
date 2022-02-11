@@ -5,7 +5,7 @@ from pyspark.sql import SparkSession, functions as F
 from utils import mode, count_if, sum_size_if, sum_profit_if, sum_revenue_if
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 class CustomerOrders:

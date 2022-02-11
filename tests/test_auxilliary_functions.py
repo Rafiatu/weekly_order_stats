@@ -3,6 +3,7 @@ from pyspark.sql import functions as F
 from src.processor import CustomerOrders
 from unittest import TestCase
 from utils import *
+import warnings
 
 
 logging.disable(logging.CRITICAL)
@@ -14,6 +15,7 @@ class UtilsTest(TestCase):
     """
 
     def setUp(self) -> None:
+        warnings.filterwarnings("ignore", category=ResourceWarning)
         self.orders = CustomerOrders("unittest_data.xlsx")
         self.dataframe = self.orders.extract_data()
 
