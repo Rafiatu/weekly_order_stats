@@ -26,8 +26,8 @@ and continue from step 3.
 2. Change directory into `weekly_order_stats` to be able to run everything successfully.
 
 
-3. You must have [Docker](https://www.docker.com/) installed on your PC in order to run this project on docker successfully. Once you have Docker up and running, 
-build the base python image used for the project that was specified in ***dockerfile*** by running 
+3. You must have [Docker](https://www.docker.com/) installed on your PC in order to run this project on docker successfully. 
+Once you have Docker up and running, build the base python image used for the project that was specified in ***dockerfile*** by running 
 ```
    docker build --tag task . 
 ``` 
